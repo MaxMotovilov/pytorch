@@ -139,6 +139,7 @@ LINUX_WORKFLOWS = [
         build_environment="pytorch-linux-backward-compatibility-check-test",
         docker_image_base=f"{DOCKER_REGISTRY}/pytorch/pytorch-linux-xenial-py3.6-gcc5.4",
         test_runner_type=LINUX_CPU_TEST_RUNNER,
+        on_pull_request=True,
         num_test_shards=2,
     ),
     # PyTorchLinuxWorkflow(
