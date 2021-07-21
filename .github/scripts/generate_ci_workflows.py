@@ -131,6 +131,12 @@ LINUX_WORKFLOWS = [
         enable_doc_jobs=True,
         num_test_shards=2,
     ),
+    PyTorchLinuxWorkflow(
+        build_environment="pytorch-linux-backward-compatibility-check-test",
+        docker_image_base=f"{DOCKER_REGISTRY}/pytorch/pytorch-linux-xenial-py3.6-gcc5.4",
+        test_runner_type=LINUX_CPU_TEST_RUNNER,
+        num_test_shards=2,
+    ),
     # PyTorchLinuxWorkflow(
     #     build_environment="pytorch-paralleltbb-linux-xenial-py3.6-gcc5.4",
     #     docker_image_base=f"{DOCKER_REGISTRY}/pytorch/pytorch-linux-xenial-py3.6-gcc5.4",
