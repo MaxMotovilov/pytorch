@@ -63,6 +63,7 @@ def PyTorchLinuxWorkflow(
     is_scheduled: Optional[str] = None,
     is_libtorch: bool = False,
     exclude_test: bool = False,
+    no_test_reports: bool = False,
 ) -> PyTorchWorkflow:
     return {
         "build_environment": build_environment,
@@ -79,6 +80,7 @@ def PyTorchLinuxWorkflow(
         "num_test_shards": num_test_shards,
         "is_libtorch": is_libtorch,
         "exclude_test": is_libtorch or exclude_test,   # libtorch is build only
+        "have_test_reports": not no_test_reports,
     }
 
 
@@ -141,6 +143,7 @@ LINUX_WORKFLOWS = [
         test_runner_type=LINUX_CPU_TEST_RUNNER,
         on_pull_request=True,
         num_test_shards=2,
+        no_test_reports=True,
     ),
     # PyTorchLinuxWorkflow(
     #     build_environment="pytorch-paralleltbb-linux-xenial-py3.6-gcc5.4",
