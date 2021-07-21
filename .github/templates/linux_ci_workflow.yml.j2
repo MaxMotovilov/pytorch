@@ -386,7 +386,7 @@ jobs:
           docker run --rm -v "$(pwd)":/v -w /v "${ALPINE_IMAGE}" chown -R "$(id -u):$(id -g)" .
           # Prune all of the docker images
           docker system prune -af
-{% endblock %}
+{%- endblock %}
 {%- endif -%}
 {%- if not is_libtorch and have_test_reports %}
 {% block render_test_results +%}
@@ -443,7 +443,7 @@ jobs:
           python3 -m tools.stats.print_test_stats --upload-to-s3 --compare-with-s3 test
 {%- endblock %}
 {%- endif -%}
-  {%- if enable_doc_jobs %}
+{%- if enable_doc_jobs %}
 
   pytorch_python_doc_build:
     runs-on: linux.2xlarge
@@ -537,4 +537,4 @@ jobs:
           # Prune all of the docker images
           docker system prune -af
 
-  {%- endif -%}
+{%- endif -%}

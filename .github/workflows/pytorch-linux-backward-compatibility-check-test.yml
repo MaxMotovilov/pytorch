@@ -334,4 +334,3 @@ jobs:
           docker run --rm -v "$(pwd)":/v -w /v "${ALPINE_IMAGE}" chown -R "$(id -u):$(id -g)" .
           # Prune all of the docker images
           docker system prune -af
-
