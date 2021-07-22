@@ -265,7 +265,9 @@ jobs:
       - build
     {%- endif %}
       - generate-test-matrix
+    {%- if ciflow_config.root_job_name!='' +%}
       - !{{ ciflow_config.root_job_name }}
+    {%- endif %}
     strategy:
       matrix: ${{ fromJson(needs.generate-test-matrix.outputs.matrix) }}
       fail-fast: false

@@ -228,7 +228,6 @@ jobs:
       - calculate-docker-image
       - build
       - generate-test-matrix
-      - 
     strategy:
       matrix: ${{ fromJson(needs.generate-test-matrix.outputs.matrix) }}
       fail-fast: false
