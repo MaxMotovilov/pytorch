@@ -233,7 +233,11 @@ jobs:
         run: .github/scripts/generate_pytorch_test_matrix.py
 
   test:
-    needs: [calculate-docker-image, build, generate-test-matrix, ciflow_should_run]
+    needs:
+      - calculate-docker-image
+      - build
+      - generate-test-matrix
+      - ciflow_should_run
     strategy:
       matrix: ${{ fromJson(needs.generate-test-matrix.outputs.matrix) }}
       fail-fast: false
