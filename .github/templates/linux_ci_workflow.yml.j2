@@ -315,7 +315,6 @@ jobs:
               ;;
           esac
           echo "SHM_SIZE=${shm_size}" >> "${GITHUB_ENV}"
-    {%- if not exclude_build +%}
       - uses: seemethere/download-artifact-s3@0504774707cbc8603d7dca922e8026eb8bf3b47b
         name: Download PyTorch Build Artifacts
         with:
@@ -323,7 +322,6 @@ jobs:
       - name: Unzip artifacts
         run: |
           unzip -o artifacts.zip
-    {%- endif %}
       - name: Output disk space left
         run: |
           sudo df -H
