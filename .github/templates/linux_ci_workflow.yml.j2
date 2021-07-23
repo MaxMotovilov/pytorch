@@ -229,7 +229,8 @@ jobs:
 {%- endblock %}
 {%- endif -%}
 {%- if not exclude_test %}
-{% block test +%}
+{% block test -%}
+  {%- set pip_install = '' +%}
   generate-test-matrix:
     if: ${{ github.repository_owner == 'pytorch' }}
     runs-on: ubuntu-18.04
@@ -315,6 +316,8 @@ jobs:
               ;;
           esac
           echo "SHM_SIZE=${shm_size}" >> "${GITHUB_ENV}"
+    {%- if not exclude_build -%}
+    {%- set pip_install = 'pip install dist/*.whl && ' +%}
       - uses: seemethere/download-artifact-s3@0504774707cbc8603d7dca922e8026eb8bf3b47b
         name: Download PyTorch Build Artifacts
         with:
@@ -322,6 +325,7 @@ jobs:
       - name: Unzip artifacts
         run: |
           unzip -o artifacts.zip
+    {%- endif %}
       - name: Output disk space left
         run: |
           sudo df -H
@@ -362,7 +366,7 @@ jobs:
             -v "${GITHUB_WORKSPACE}:/var/lib/jenkins/workspace" \
             -w /var/lib/jenkins/workspace \
             "${DOCKER_IMAGE}" \
-            sh -c 'sudo chown -R jenkins . && pip install dist/*.whl && '$TEST_COMMAND
+            sh -c 'sudo chown -R jenkins . && !{{pip_install}}'$TEST_COMMAND
       - name: Chown workspace
         if: always()
         run: |
